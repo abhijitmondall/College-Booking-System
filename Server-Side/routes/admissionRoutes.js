@@ -6,7 +6,7 @@ const authController = require("./../controllers/authController");
 router
   .route("/")
   .get(authController.protected, admissionController.getAdmissions)
-  .post(authController.protected, admissionController.newAdmission);
+  .post(admissionController.newAdmission);
 
 router
   .route("/:id")

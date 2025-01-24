@@ -40,7 +40,7 @@ function AdmissionForm({ college, onClose }) {
 
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            // Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
           body: JSON.stringify(formData),
         }
