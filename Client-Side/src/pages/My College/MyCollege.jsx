@@ -12,7 +12,7 @@ function MyCollege() {
           `https://college-booking-system.vercel.app/api/v1/admissions/`
         );
         const data = await response.json();
-        setAppliedColleges(data.data.admissions);
+        setAppliedColleges(data?.data?.admissions);
       } catch (error) {
         console.error("Failed to fetch applied colleges:", error);
       }
@@ -25,9 +25,9 @@ function MyCollege() {
     <section className="py-6 bg-gray-100 min-h-screen">
       <div className=" container">
         <h1 className="text-2xl font-bold mb-6">My Applied Colleges</h1>
-        {appliedColleges.length > 0 ? (
+        {appliedColleges?.length > 0 ? (
           <div className="grid gap-6 lg:grid-cols-3">
-            {appliedColleges.map((admission) => (
+            {appliedColleges?.map((admission) => (
               <div
                 key={admission._id}
                 className="bg-white shadow-lg rounded-lg p-6"

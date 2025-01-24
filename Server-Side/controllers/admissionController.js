@@ -67,6 +67,7 @@ exports.newAdmission = catchAsync(async (req, res, next) => {
 
 exports.getAdmissions = catchAsync(async (req, res, next) => {
   const userEmail = req.user.email;
+  console.log(req.user);
   const admissions = await Admission.find({ email: userEmail }).select("-__v");
 
   if (!admissions)
