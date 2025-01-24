@@ -41,7 +41,7 @@ function Register() {
     );
     if (!res.ok) {
       console.log(res);
-      throw new Error(res.message);
+      throw new Error(res);
     }
 
     await createUser(formData.email, formData.password);

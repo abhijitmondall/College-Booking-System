@@ -17,22 +17,22 @@ const userSchema = new mongoose.Schema(
       trim: true,
       validate: [validator.isEmail, "Please provide a valid email!"],
     },
-    password: {
-      type: String,
-      required: [true, "Please enter a password"],
-      minlength: 8,
-      select: false,
-    },
-    confirmPassword: {
-      type: String,
-      required: true,
-      validate: {
-        validator: function (value) {
-          return value === this.password;
-        },
-        message: "Passwords do not match",
-      },
-    },
+    //  password: {
+    //    type: String,
+    //    required: [true, "Please enter a password"],
+    //    minlength: 8,
+    //    select: false,
+    //  },
+    //  confirmPassword: {
+    //    type: String,
+    //    required: true,
+    //    validate: {
+    //      validator: function (value) {
+    //        return value === this.password;
+    //      },
+    //      message: "Passwords do not match",
+    //    },
+    //  },
     gender: {
       type: String,
       enum: ["Male", "Female", "Other"],
