@@ -49,7 +49,7 @@ const admissionSchema = new mongoose.Schema(
     review: {
       rating: {
         type: Number,
-        min: 1,
+        min: 0,
         max: 5,
         default: 0,
       },
