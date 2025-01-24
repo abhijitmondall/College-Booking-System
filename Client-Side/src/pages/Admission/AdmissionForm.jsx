@@ -9,21 +9,46 @@ function AdmissionForm({ college, onClose }) {
     address: "",
     dob: "",
     image: null,
+    collegeId: college._id,
   });
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData({
       ...formData,
+
       [name]: files ? files[0] : value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-    alert(`Admission form submitted for ${college.name}!`);
-    onClose();
+
+    try {
+      const response = await fetch(
+        "https://college-booking-system.vercel.app/api/v1/admissions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData), // Convert form data to JSON
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Admission form submitted successfully:", data);
+        alert(`Admission form submitted for ${formData.candidateName}!`);
+        onClose(); // Close the modal or portal
+      } else {
+        console.error("Failed to submit form:", response.statusText);
+        alert("Failed to submit the admission form. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("An error occurred while submitting the form. Please try again.");
+    }
   };
 
   return (
@@ -106,7 +131,6 @@ function AdmissionForm({ college, onClose }) {
           onChange={handleChange}
           className="w-full border border-gray-300 rounded-lg p-3"
           accept="image/*"
-          required
         />
       </div>
       <button

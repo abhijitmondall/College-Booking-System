@@ -3,6 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 
+const userRouter = require("./routes/userRoutes");
 const collegeRouter = require("./routes/collegeRoutes");
 const admissionRouter = require("./routes/admissionRoutes");
 
@@ -22,6 +23,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
+
+// User Route
+app.use("/api/v1/users", userRouter);
 
 // College Route
 app.use("/api/v1/colleges", collegeRouter);

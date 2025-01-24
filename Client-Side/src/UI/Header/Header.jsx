@@ -2,11 +2,17 @@ import { Link, NavLink } from "react-router";
 import logo from "./../../assets/Img/logo.png";
 import { HiOutlineSearch } from "react-icons/hi";
 import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { user, logout } = useAuth();
+  console.log(user);
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  const handleLogout = async () => {
+    await logout();
+  };
 
   return (
     <header className="bg-gradient-to-r from-purple-700 to-purple-500 shadow-md">
@@ -57,7 +63,7 @@ function Header() {
             } md:block`}
           >
             <ul
-              className={`flex ${
+              className={`flex items-center ${
                 isOpen ? "flex-col" : "flex-row"
               } gap-6 text-sm md:text-base font-medium text-white justify-center md:justify-end`}
             >
@@ -110,16 +116,25 @@ function Header() {
                 </NavLink>
               </li>
               <li>
-                <NavLink
-                  to="/Login"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-orange-400 underline"
-                      : "hover:text-orange-400"
-                  }
-                >
-                  Login
-                </NavLink>
+                {user ? (
+                  <button
+                    className="cursor-pointer border-2 px-[20px] py-[10px] rounded-[10px]"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <NavLink
+                    to="/Login"
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-orange-400 underline"
+                        : "hover:text-orange-400"
+                    }
+                  >
+                    Login
+                  </NavLink>
+                )}
               </li>
             </ul>
           </nav>

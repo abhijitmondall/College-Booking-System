@@ -6,6 +6,8 @@ import Colleges from "./pages/Colleges/Colleges";
 import Admission from "./pages/Admission/Admission";
 import Login from "./pages/Login/Login";
 import CollegeDetails from "./pages/CollegeDetails/CollegeDetails";
+import Register from "./pages/Register/Register";
+import PrivateRoutes from "./routes/PrivateRoutes";
 
 function App() {
   return (
@@ -15,8 +17,16 @@ function App() {
         <Route path="/Colleges" element={<Colleges />} />
         <Route path="/Colleges/:id" element={<CollegeDetails />} />
         <Route path="/Admission" element={<Admission />} />
-        <Route path="/MyCollege" element={<MyCollege />} />
+        <Route
+          path="/MyCollege"
+          element={
+            <PrivateRoutes>
+              <MyCollege />
+            </PrivateRoutes>
+          }
+        />
         <Route path="/Login" element={<Login />} />
+        <Route path="/Register" element={<Register />} />
       </Route>
     </Routes>
   );

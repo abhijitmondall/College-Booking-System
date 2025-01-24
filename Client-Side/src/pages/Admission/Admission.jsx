@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router";
+
 import AdmissionForm from "./AdmissionForm";
 
 function Admission() {
@@ -60,31 +60,6 @@ function Admission() {
   }
 
   return (
-    // <section className="min-h-screen py-12 px-4 lg:px-16 bg-gray-50">
-    //   <div className="container">
-    //     <h2 className="text-3xl font-bold text-center mb-8 text-purple-700">
-    //       College Admissions
-    //     </h2>
-    //     <ul className="sm:max-w-[80%] m-auto grid grid-cols-1 gap-6">
-    //       {colleges.map((college) => (
-    //         <li
-    //           key={college._id}
-    //           className="sm:flex justify-between items-center p-6 bg-white shadow-md rounded-lg hover:shadow-lg transition-all"
-    //         >
-    //           <h3 className="text-lg font-bold text-gray-800 mb-4">
-    //             {college.collegeName}
-    //           </h3>
-    //           <Link
-    //             to={`/admission/${college.id}`}
-    //             className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-all"
-    //           >
-    //             Apply Now
-    //           </Link>
-    //         </li>
-    //       ))}
-    //     </ul>
-    //   </div>
-    // </section>
     <section className="min-h-screen py-12 px-4 lg:px-16 bg-gray-50">
       <div className="container relative">
         <h2 className="text-3xl font-bold text-center mb-8 text-purple-700">
