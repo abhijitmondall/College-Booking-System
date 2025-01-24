@@ -1,8 +1,7 @@
-const Admission = require("../models/admissionModel");
 const ApiFeatures = require("../utils/apiFeatures");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
-const multer = require("multer");
+const Admission = require("../models/admissionModel");
 
 // Get New Admission Data from user
 
@@ -33,7 +32,7 @@ exports.newAdmission = catchAsync(async (req, res, next) => {
     review,
   } = req.body;
   // Validate input data
-  console.log(req.body);
+
   if (
     !candidateName ||
     !subject ||
@@ -46,18 +45,8 @@ exports.newAdmission = catchAsync(async (req, res, next) => {
   ) {
     return next(new AppError(`All fields are required!`, 404));
   }
-  const newAdmission = await Admission.create({
-    candidateName,
-    subject,
-    email,
-    phone,
-    address,
-    dob,
-    collegeId,
-    collegeName,
-    collegeImage,
-    review,
-  });
+
+  const newAdmission = await Admission.create(req.body);
 
   res.status(201).json({
     status: "success",
