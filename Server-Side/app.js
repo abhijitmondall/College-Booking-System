@@ -5,6 +5,9 @@ const cookieParser = require("cookie-parser");
 
 const collegeRouter = require("./routes/collegeRoutes");
 
+const AppError = require("./utils/appError");
+const globalErrorHandler = require("./controllers/errorController");
+
 console.log(process.env.NODE_ENV);
 
 const app = express();
@@ -21,11 +24,11 @@ app.use(cookieParser());
 // College Route
 app.use("/api/v1/colleges", collegeRouter);
 
-// app.all("*", (req, res, next) => {
-//   next(new AppError(`Can't find ${req.originalUrl} on the server!`, 404));
-// });
+app.all("*", (req, res, next) => {
+  next(new AppError(`Can't find ${req.originalUrl} on the server!`, 404));
+});
 
 // Global Error Handler Middleware
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 module.exports = app;
