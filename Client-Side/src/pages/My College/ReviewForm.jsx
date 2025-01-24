@@ -1,31 +1,44 @@
 import { useState } from "react";
 
-function ReviewForm() {
+function ReviewForm({ admission }) {
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { collegeName, candidateName, collegeId, email } = admission;
+
+  const data = {
+    collegeName,
+    userName: candidateName,
+    collegeId,
+    userEmail: email,
+    rating,
+    comment,
+  };
 
   const handleSubmit = async (e) => {
-    //  const data = {
-    //    collegeName,
-    //  };
-    //  e.preventDefault();
+    e.preventDefault();
+
     try {
-      const response = await fetch(
-        `https://college-booking-system.vercel.app/api/v1/admissions/${admissionId}/review`,
+      setLoading(true);
+      const res = await fetch(
+        `https://college-booking-system.vercel.app/api/v1/reviews`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ rating, comment }),
+          body: JSON.stringify(data),
         }
       );
-
-      if (response.ok) {
+      console.log(res);
+      if (res.ok) {
         alert("Review added successfully");
       } else {
         alert("Failed to add review");
       }
     } catch (error) {
       console.error("Error adding review:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,7 +65,10 @@ function ReviewForm() {
       ></textarea>
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer"
+        disabled={loading}
+        className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer ${
+          loading && "disabled"
+        }`}
       >
         Submit Review
       </button>

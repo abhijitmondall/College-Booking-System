@@ -46,6 +46,18 @@ const admissionSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    review: {
+      rating: {
+        type: Number,
+        min: 1,
+        max: 5,
+        default: 0,
+      },
+      comment: {
+        type: String,
+        default: "",
+      },
+    },
   },
   {
     timestamps: true,

@@ -30,6 +30,7 @@ exports.newAdmission = catchAsync(async (req, res, next) => {
     collegeId,
     collegeName,
     collegeImage,
+    review,
   } = req.body;
   // Validate input data
   console.log(req.body);
@@ -55,6 +56,7 @@ exports.newAdmission = catchAsync(async (req, res, next) => {
     collegeId,
     collegeName,
     collegeImage,
+    review,
   });
 
   res.status(201).json({
@@ -75,5 +77,17 @@ exports.getAdmissions = catchAsync(async (req, res, next) => {
     data: {
       admissions,
     },
+  });
+});
+
+exports.updateAdmission = catchAsync(async (req, res, next) => {
+  const admission = await Admission.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).json({
+    status: "success",
+    admission,
   });
 });

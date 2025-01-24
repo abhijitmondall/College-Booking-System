@@ -10,4 +10,5 @@ router.route("/").get(admissionController.getAdmissions).post(
   admissionController.newAdmission
 );
 
+router.route("/:id").patch(admissionController.updateAdmission);
 module.exports = router;

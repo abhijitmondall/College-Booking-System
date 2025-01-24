@@ -137,7 +137,7 @@ function AdmissionForm({ college, onClose }) {
         <input
           type="text"
           onChange={handleChange}
-          value={formData.image}
+          value={formData.collegeImage}
           className="w-full border border-gray-300 rounded-lg p-3 disabled"
         />
       </div>

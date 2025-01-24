@@ -12,7 +12,6 @@ function MyCollege() {
         );
         const data = await response.json();
         setAppliedColleges(data.data.admissions);
-        console.log(data.data.admissions);
       } catch (error) {
         console.error("Failed to fetch applied colleges:", error);
       }
@@ -63,10 +62,7 @@ function MyCollege() {
                       </p>
                     </>
                   ) : (
-                    <ReviewForm
-                      admissionId={admission._id}
-                      fetchAppliedColleges={appliedColleges}
-                    />
+                    <ReviewForm admission={admission} />
                   )}
                 </div>
               </div>
