@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 function Colleges() {
   const [colleges, setColleges] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    navigate(`/colleges/${id}`);
+  };
 
   useEffect(() => {
     // Fetch college data from the API
@@ -78,13 +84,7 @@ function Colleges() {
                   {college.researchCount}
                 </p>
                 <button
-                  onClick={() =>
-                    alert(
-                      `Events: ${college.events.join(
-                        ", "
-                      )}\nSports: ${college.sports.join(", ")}`
-                    )
-                  }
+                  onClick={() => handleClick(college._id)}
                   className="bg-purple-600 text-white text-sm py-2 px-4 rounded-md hover:bg-purple-700 transition-colors duration-300 cursor-pointer"
                 >
                   View Details

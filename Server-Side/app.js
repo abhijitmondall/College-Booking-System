@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 
 const collegeRouter = require("./routes/collegeRoutes");
+const admissionRouter = require("./routes/admissionRoutes");
 
 const AppError = require("./utils/appError");
 const globalErrorHandler = require("./controllers/errorController");
@@ -24,6 +25,9 @@ app.use(cookieParser());
 
 // College Route
 app.use("/api/v1/colleges", collegeRouter);
+
+// Admission Route
+app.use("/api/v1/admissions", admissionRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on the server!`, 404));
