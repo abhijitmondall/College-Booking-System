@@ -6,7 +6,7 @@ const admissionController = require("./../controllers/admissionController");
 router.route("/").get(admissionController.getAdmissions).post(
   //  authController.protected,
   //  authController.restrictTo("Instructor", "Admin"),
-  admissionController.uploadUserPhoto,
+  // admissionController.uploadUserPhoto,
   admissionController.newAdmission
 );
 

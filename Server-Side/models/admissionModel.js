@@ -32,7 +32,7 @@ const admissionSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    image: {
+    collegeImage: {
       type: String,
       //  required: true,
     },

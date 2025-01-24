@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 
 function AdmissionForm({ college, onClose }) {
   const { user } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     candidateName: "",
@@ -11,7 +12,7 @@ function AdmissionForm({ college, onClose }) {
     phone: "",
     address: "",
     dob: "",
-    image: null,
+    collegeImage: college.collegeImage,
     collegeId: college._id,
     collegeName: college.collegeName,
   });
@@ -29,25 +30,28 @@ function AdmissionForm({ college, onClose }) {
     e.preventDefault();
 
     try {
-      const response = await fetch(
+      setLoading(true);
+      const res = await fetch(
         "https://college-booking-system.vercel.app/api/v1/admissions",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData), // Convert form data to JSON
+          body: JSON.stringify(formData),
         }
       );
 
-      if (response.ok) {
-        const data = await response.json();
+      if (res.ok) {
+        const data = await res.json();
         console.log("Admission form submitted successfully:", data);
         alert(`Admission form submitted for ${formData.candidateName}!`);
-        onClose(); // Close the modal or portal
+        onClose();
+        setLoading(false);
       } else {
-        console.error("Failed to submit form:", response.statusText);
+        console.error("Failed to submit form:", res);
         alert("Failed to submit the admission form. Please try again.");
+        setLoading(false);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -129,18 +133,20 @@ function AdmissionForm({ college, onClose }) {
         />
       </div>
       <div>
-        <label className="block text-gray-700 mb-2">Upload Image</label>
+        <label className="block text-gray-700 mb-2">College Image</label>
         <input
-          type="file"
-          name="image"
+          type="text"
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg p-3"
-          accept="image/*"
+          value={formData.image}
+          className="w-full border border-gray-300 rounded-lg p-3 disabled"
         />
       </div>
       <button
         type="submit"
-        className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-all cursor-pointer"
+        disabled={loading}
+        className={`w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 transition-all cursor-pointer ${
+          loading && "disabled"
+        }`}
       >
         Submit
       </button>
