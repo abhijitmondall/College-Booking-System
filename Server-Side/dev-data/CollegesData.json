@@ -1,0 +1,56 @@
+[
+  {
+    "collegeName": "Green Valley College",
+    "collegeImage": "https://i.ibb.co/5jT94nY/clg3.jpg",
+    "rating": 4.5,
+    "admissionDates": "1st June - 30th June",
+    "researchCount": 12,
+    "events": ["Cultural Fest", "Science Fair", "Alumni Meet"],
+    "sports": ["Football", "Basketball"]
+  },
+  {
+    "collegeName": "Blue Ocean University",
+    "collegeImage": "https://i.ibb.co/Z6jzckZ/clg-2.jpg",
+    "rating": 4.2,
+    "admissionDates": "15th July - 31st July",
+    "researchCount": 8,
+    "events": ["Tech Expo", "Art Workshop", "Startup Pitching"],
+    "sports": ["Swimming", "Badminton"]
+  },
+  {
+    "collegeName": "Sunrise Institute of Technology",
+    "collegeImage": "https://i.ibb.co/n7Wzngz/clg-1.jpg",
+    "rating": 4.8,
+    "admissionDates": "10th August - 25th August",
+    "researchCount": 15,
+    "events": ["Hackathon", "Music Fest", "Leadership Summit"],
+    "sports": ["Cricket", "Volleyball"]
+  },
+  {
+    "collegeName": "Mountain Peak Academy",
+    "collegeImage": "https://i.ibb.co/XyRZjCg/clg4.jpg",
+    "rating": 4.0,
+    "admissionDates": "1st May - 20th May",
+    "researchCount": 6,
+    "events": ["Career Fair", "Photography Contest", "Coding Marathon"],
+    "sports": ["Tennis", "Table Tennis"]
+  },
+  {
+    "collegeName": "Lakeside Polytechnic",
+    "collegeImage": "https://i.ibb.co/fp7f5Q3/clg5.jpg",
+    "rating": 4.6,
+    "admissionDates": "5th July - 25th July",
+    "researchCount": 10,
+    "events": ["Startup Incubator", "Drama Festival", "Robotics Competition"],
+    "sports": ["Hockey", "Track and Field"]
+  },
+  {
+    "collegeName": "Riverbank Arts College",
+    "collegeImage": "https://i.ibb.co/QdYJpq8/clg6.jpg",
+    "rating": 4.3,
+    "admissionDates": "20th August - 15th September",
+    "researchCount": 7,
+    "events": ["Art Exhibition", "Film Screening", "Dance Workshop"],
+    "sports": ["Baseball", "Rugby"]
+  }
+]

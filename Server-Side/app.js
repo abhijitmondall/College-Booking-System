@@ -3,6 +3,8 @@ const cors = require("cors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 
+const collegeRouter = require("./routes/collegeRoutes");
+
 console.log(process.env.NODE_ENV);
 
 const app = express();
@@ -16,11 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
 
-app.use("/api/v1/colleges", (req, res, next) => {
-  res.status(200).json({
-    data: "test",
-  });
-});
+// College Route
+app.use("/api/v1/colleges", collegeRouter);
 
 // app.all("*", (req, res, next) => {
 //   next(new AppError(`Can't find ${req.originalUrl} on the server!`, 404));

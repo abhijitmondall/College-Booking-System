@@ -5,7 +5,7 @@ dotenv.config({
   path: "./config.env",
 });
 
-const MelodyClass = require("../models/classModel");
+const College = require("../models/collegeModel");
 
 const DB = process.env.DATABASE.replace(
   "<PASSWORD>",
@@ -17,14 +17,14 @@ mongoose.connect(DB, {}).then((con) => {
 });
 
 // Read JSON File
-const classes = JSON.parse(
-  fs.readFileSync(`${__dirname}/classesData.json`, "utf8")
+const colleges = JSON.parse(
+  fs.readFileSync(`${__dirname}/collegesData.json`, "utf8")
 );
 
 // Import Data Into DB
 const importData = async () => {
   try {
-    await MelodyClass.create(classes);
+    await College.create(colleges);
     console.log("Data Imported Successfully");
   } catch (err) {
     console.log("Failed to Import", err);
@@ -35,7 +35,7 @@ const importData = async () => {
 // Delete All Data From DB
 const deleteData = async () => {
   try {
-    await MelodyClass.deleteMany();
+    await College.deleteMany();
     console.log("Data Deleted Successfully");
   } catch (err) {
     console.log("Failed to Delete", err);
