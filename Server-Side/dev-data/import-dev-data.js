@@ -6,6 +6,7 @@ dotenv.config({
 });
 
 const College = require("../models/collegeModel");
+const Review = require("../models/reviewModel");
 
 const DB = process.env.DATABASE.replace(
   "<PASSWORD>",
@@ -18,13 +19,13 @@ mongoose.connect(DB, {}).then((con) => {
 
 // Read JSON File
 const colleges = JSON.parse(
-  fs.readFileSync(`${__dirname}/collegesData.json`, "utf8")
+  fs.readFileSync(`${__dirname}/ReviewData.json`, "utf8")
 );
 
 // Import Data Into DB
 const importData = async () => {
   try {
-    await College.create(colleges);
+    await Review.create(colleges);
     console.log("Data Imported Successfully");
   } catch (err) {
     console.log("Failed to Import", err);

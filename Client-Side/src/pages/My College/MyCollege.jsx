@@ -3,6 +3,7 @@ import ReviewForm from "./ReviewForm";
 
 function MyCollege() {
   const [appliedColleges, setAppliedColleges] = useState([]);
+  const [refetch, setRefetch] = useState(false);
 
   useEffect(() => {
     const fetchAppliedColleges = async () => {
@@ -18,7 +19,7 @@ function MyCollege() {
     };
 
     fetchAppliedColleges();
-  }, []);
+  }, [refetch]);
 
   return (
     <section className="py-6 bg-gray-100 min-h-screen">
@@ -52,7 +53,7 @@ function MyCollege() {
 
                 {/* Review Section */}
                 <div className="mt-4">
-                  {admission.review ? (
+                  {admission.review.isReviewed ? (
                     <>
                       <p>
                         <strong>Review:</strong> {admission.review.comment}
@@ -62,7 +63,7 @@ function MyCollege() {
                       </p>
                     </>
                   ) : (
-                    <ReviewForm admission={admission} />
+                    <ReviewForm admission={admission} setRefetch={setRefetch} />
                   )}
                 </div>
               </div>

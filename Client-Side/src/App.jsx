@@ -15,7 +15,14 @@ function App() {
       <Route path="/" element={<Main />}>
         <Route index element={<Home />} />
         <Route path="/Colleges" element={<Colleges />} />
-        <Route path="/Colleges/:id" element={<CollegeDetails />} />
+        <Route
+          path="/Colleges/:id"
+          element={
+            <PrivateRoutes>
+              <CollegeDetails />
+            </PrivateRoutes>
+          }
+        />
         <Route path="/Admission" element={<Admission />} />
         <Route
           path="/MyCollege"

@@ -20,7 +20,6 @@ function Login() {
 
       setEmail("");
       setPassword("");
-      console.log(email, password);
     } catch (err) {
       console.error(err);
     }

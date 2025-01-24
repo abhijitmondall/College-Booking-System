@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function ReviewForm({ admission }) {
+function ReviewForm({ admission, setRefetch }) {
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
@@ -15,7 +15,7 @@ function ReviewForm({ admission }) {
     rating,
     comment,
   };
-
+  const ID = admission._id;
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -29,9 +29,20 @@ function ReviewForm({ admission }) {
           body: JSON.stringify(data),
         }
       );
-      console.log(res);
+      await fetch(
+        `https://college-booking-system.vercel.app/api/v1/admissions/${ID}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            review: { rating, comment, isReviewed: true },
+          }),
+        }
+      );
+
       if (res.ok) {
         alert("Review added successfully");
+        setRefetch((re) => !re);
       } else {
         alert("Failed to add review");
       }

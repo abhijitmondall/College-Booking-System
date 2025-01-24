@@ -1,0 +1,34 @@
+[
+  {
+    "collegeName": "Harvard University",
+    "userName": "John Doe",
+    "collegeId": "64e9f4b2fca52c57b7b2c001",
+    "userEmail": "johndoe@example.com",
+    "rating": 5,
+    "comment": "An amazing experience with top-notch facilities and faculty."
+  },
+  {
+    "collegeName": "MIT",
+    "userName": "Jane Smith",
+    "collegeId": "64e9f4b2fca52c57b7b2c002",
+    "userEmail": "janesmith@example.com",
+    "rating": 4,
+    "comment": "Great research opportunities and a vibrant campus life."
+  },
+  {
+    "collegeName": "Stanford University",
+    "userName": "Alex Johnson",
+    "collegeId": "64e9f4b2fca52c57b7b2c003",
+    "userEmail": "alexjohnson@example.com",
+    "rating": 4.5,
+    "comment": "The campus is beautiful, and the courses are very engaging."
+  },
+  {
+    "collegeName": "Caltech",
+    "userName": "Emily Davis",
+    "collegeId": "64e9f4b2fca52c57b7b2c004",
+    "userEmail": "emilydavis@example.com",
+    "rating": 5,
+    "comment": "Incredible professors and cutting-edge research programs."
+  }
+]

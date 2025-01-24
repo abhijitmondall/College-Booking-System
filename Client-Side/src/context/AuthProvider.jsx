@@ -56,23 +56,22 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      console.log(currentUser);
+      (async () => {
+        // Get and Set Token
+        if (currentUser) {
+          const res = await fetch(
+            `https://college-booking-system.vercel.app/api/v1/users/jwt/${currentUser.email}`
+          );
+          const data = await res.json();
+          console.log(data);
+          localStorage.setItem("access-token", data.token);
+        } else {
+          localStorage.removeItem("access-token");
+        }
 
-      // Get and Set Token
-      // if (currentUser) {
-      //   axios
-      //     .get(
-      //       `${import.meta.env.VITE_API_BASE_URL}users/jwt/${
-      //         currentUser?.email
-      //       }`
-      //     )
-      //     .then(({ data }) => {
-      //       localStorage.setItem("access-token", data.token);
-      //     });
-      // } else {
-      //   localStorage.removeItem("access-token");
-      // }
-
-      // setLoading(false);
+        setLoading(false);
+      })();
     });
 
     return () => {

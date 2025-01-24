@@ -5,34 +5,50 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
+import { useEffect, useState } from "react";
 
 function ReviewSection() {
-  const reviews = [
-    {
-      collegeName: "Harvard University",
-      user: "John Doe",
-      comment: "An amazing experience with top-notch facilities and faculty.",
-      rating: 5,
-    },
-    {
-      collegeName: "MIT",
-      user: "Jane Smith",
-      comment: "Great research opportunities and a vibrant campus life.",
-      rating: 4,
-    },
-    {
-      collegeName: "Stanford University",
-      user: "Alex Johnson",
-      comment: "The campus is beautiful, and the courses are very engaging.",
-      rating: 4.5,
-    },
-    {
-      collegeName: "Caltech",
-      user: "Emily Davis",
-      comment: "Incredible professors and cutting-edge research programs.",
-      rating: 5,
-    },
-  ];
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch reviews from API
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await fetch(
+          `https://college-booking-system.vercel.app/api/v1/reviews`
+        );
+        const data = await res.json();
+
+        setReviews(data.data.reviews);
+
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to fetch reviews.");
+        setLoading(false);
+        console.log(err);
+      }
+    };
+
+    fetchReviews();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="bg-gray-50 pt-[60px] pb-[90px] text-center">
+        <p className="text-lg text-gray-800">Loading reviews...</p>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="bg-gray-50 pt-[60px] pb-[90px] text-center">
+        <p className="text-lg text-red-600">{error}</p>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-gray-50 pt-[60px] pb-[90px]">
@@ -54,14 +70,14 @@ function ReviewSection() {
           }}
           className="slider"
         >
-          {reviews.map((review, index) => (
+          {reviews?.map((review, index) => (
             <SwiperSlide key={index}>
               <div className="p-6 bg-white rounded-lg shadow-lg transition-transform hover:shadow-xl hover:scale-[1.02]">
                 <h3 className="text-xl font-semibold text-gray-800 mb-2">
                   {review.collegeName}
                 </h3>
                 <p className="text-sm text-gray-600 mb-4">
-                  Reviewed by {review.user}
+                  Reviewed by {review.userName}
                 </p>
                 <p className="text-base text-gray-700 mb-4">{review.comment}</p>
                 <ReactStars

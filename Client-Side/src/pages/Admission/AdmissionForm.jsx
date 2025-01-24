@@ -1,9 +1,11 @@
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router";
 
 function AdmissionForm({ college, onClose }) {
   const { user } = useAuth();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     candidateName: "",
@@ -43,9 +45,10 @@ function AdmissionForm({ college, onClose }) {
       );
 
       if (res.ok) {
-        const data = await res.json();
-        console.log("Admission form submitted successfully:", data);
+        await res.json();
+
         alert(`Admission form submitted for ${formData.candidateName}!`);
+        navigate("/MyCollege", { replace: true });
         onClose();
         setLoading(false);
       } else {
