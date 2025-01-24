@@ -66,7 +66,8 @@ exports.newAdmission = catchAsync(async (req, res, next) => {
 });
 
 exports.getAdmissions = catchAsync(async (req, res, next) => {
-  const admissions = await Admission.find().select("-__v");
+  const userEmail = req.user.email;
+  const admissions = await Admission.find({ email: userEmail }).select("-__v");
 
   if (!admissions)
     return next(new AppError(`No Admissions history found.`, 404));
