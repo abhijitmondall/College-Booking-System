@@ -4,31 +4,33 @@ function ReviewForm() {
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState("");
 
-  //   const handleSubmit = async (e) => {
-  //     e.preventDefault();
-  //     try {
-  //       const response = await fetch(
-  //         `https://college-booking-system.vercel.app/api/v1/admissions/${admissionId}/review`,
-  //         {
-  //           method: "POST",
-  //           headers: { "Content-Type": "application/json" },
-  //           body: JSON.stringify({ rating, comment }),
-  //         }
-  //       );
+  const handleSubmit = async (e) => {
+    //  const data = {
+    //    collegeName,
+    //  };
+    //  e.preventDefault();
+    try {
+      const response = await fetch(
+        `https://college-booking-system.vercel.app/api/v1/admissions/${admissionId}/review`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ rating, comment }),
+        }
+      );
 
-  //       if (response.ok) {
-  //         alert("Review added successfully");
-  //         fetchAppliedColleges();
-  //       } else {
-  //         alert("Failed to add review");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error adding review:", error);
-  //     }
-  //   };
+      if (response.ok) {
+        alert("Review added successfully");
+      } else {
+        alert("Failed to add review");
+      }
+    } catch (error) {
+      console.error("Error adding review:", error);
+    }
+  };
 
   return (
-    <form className="mt-4">
+    <form onSubmit={handleSubmit} className="mt-4">
       <label className="block mb-2">Rating:</label>
       <select
         value={rating}

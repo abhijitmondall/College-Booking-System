@@ -13,6 +13,7 @@ function AdmissionForm({ college, onClose }) {
     dob: "",
     image: null,
     collegeId: college._id,
+    collegeName: college.collegeName,
   });
 
   const handleChange = (e) => {

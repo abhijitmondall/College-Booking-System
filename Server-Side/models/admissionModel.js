@@ -41,6 +41,11 @@ const admissionSchema = new mongoose.Schema(
       ref: "College",
       required: true,
     },
+    collegeName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   {
     timestamps: true,
