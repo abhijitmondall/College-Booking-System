@@ -37,14 +37,15 @@ function AdmissionForm({ college, onClose }) {
         "https://college-booking-system.vercel.app/api/v1/admissions",
         {
           method: "POST",
-          // Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
           body: JSON.stringify(formData),
         }
       );
-
+      console.log(res);
       if (res.ok) {
         await res.json();
 
