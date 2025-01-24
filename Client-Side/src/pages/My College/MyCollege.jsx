@@ -9,7 +9,12 @@ function MyCollege() {
     const fetchAppliedColleges = async () => {
       try {
         const response = await fetch(
-          `https://college-booking-system.vercel.app/api/v1/admissions/`
+          `https://college-booking-system.vercel.app/api/v1/admissions/`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            },
+          }
         );
         const data = await response.json();
         setAppliedColleges(data?.data?.admissions);
