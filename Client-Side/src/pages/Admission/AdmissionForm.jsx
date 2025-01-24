@@ -1,10 +1,13 @@
 import { useState } from "react";
+import useAuth from "../../hooks/useAuth";
 
 function AdmissionForm({ college, onClose }) {
+  const { user } = useAuth();
+
   const [formData, setFormData] = useState({
     candidateName: "",
     subject: "",
-    email: "",
+    email: user.email,
     phone: "",
     address: "",
     dob: "",
@@ -82,9 +85,10 @@ function AdmissionForm({ college, onClose }) {
         <input
           type="email"
           name="email"
+          disabled
           value={formData.email}
           onChange={handleChange}
-          className="w-full border border-gray-300 rounded-lg p-3"
+          className="w-full border border-gray-300 rounded-lg p-3 disabled"
           placeholder="Enter your email"
           required
         />

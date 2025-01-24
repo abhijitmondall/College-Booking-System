@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 import AdmissionForm from "./AdmissionForm";
+import { useNavigate } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
 function Admission() {
   const [colleges, setColleges] = useState([]);
@@ -10,7 +12,13 @@ function Admission() {
   const [showModal, setShowModal] = useState(false);
   const [selectedCollege, setSelectedCollege] = useState(null);
 
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const handleApplyClick = (college) => {
+    if (!user) {
+      return navigate("/Login", { state: true });
+    }
     setSelectedCollege(college);
     setShowModal(true);
   };

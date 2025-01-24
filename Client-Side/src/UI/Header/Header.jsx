@@ -7,7 +7,7 @@ import useAuth from "../../hooks/useAuth";
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { user, logout } = useAuth();
-  console.log(user);
+
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const handleLogout = async () => {

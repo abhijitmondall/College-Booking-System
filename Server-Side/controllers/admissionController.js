@@ -54,3 +54,18 @@ exports.newAdmission = catchAsync(async (req, res, next) => {
     admission: newAdmission,
   });
 });
+
+exports.getAdmissions = catchAsync(async (req, res, next) => {
+  const admissions = await Admission.find().select("-__v");
+
+  if (!admissions)
+    return next(new AppError(`No Admissions history found.`, 404));
+
+  res.status(200).json({
+    status: "success",
+    results: admissions.length,
+    data: {
+      admissions,
+    },
+  });
+});

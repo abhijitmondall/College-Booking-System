@@ -106,6 +106,18 @@
       rgba(152, 115, 255, 0.1) 100%
     );
   }
+
+  .disabled {
+    display: block;
+    background-color: #f0eeee !important;
+    color: #ccc !important;
+    cursor: not-allowed !important;
+    opacity: 0.5;
+    padding: 0.4rem 1rem;
+    margin: 0 auto;
+    border-radius: 0.8rem;
+    border: 1px solid #999 !important;
+  }
 }
 
 .slider .swiper-button-prev {

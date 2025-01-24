@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 
 function Register() {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -11,18 +12,22 @@ function Register() {
     gender: "",
   });
 
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const path = location?.state?.from?.pathname || "/";
+
   const { createUser } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-
-    console.log(formData);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     if (formData.password !== formData.confirmPassword) return;
 
     const res = await fetch(
@@ -45,7 +50,7 @@ function Register() {
     }
 
     await createUser(formData.email, formData.password);
-
+    navigate(path, { replace: true });
     setFormData({
       name: "",
       email: "",
@@ -53,7 +58,7 @@ function Register() {
       confirmPassword: "",
       gender: "",
     });
-    console.log("Form Data:", formData);
+    setLoading(true);
   };
 
   return (
@@ -155,7 +160,10 @@ function Register() {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition duration-300 cursor-pointer"
+            disabled={loading}
+            className={`w-full bg-purple-600 text-white font-semibold py-2 rounded-lg hover:bg-purple-700 transition duration-300 cursor-pointer ${
+              loading && "disabled"
+            }`}
           >
             Register
           </button>
