@@ -37,7 +37,6 @@ const admissionSchema = new mongoose.Schema(
     },
     collegeId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "College",
       required: true,
     },
     collegeName: {
