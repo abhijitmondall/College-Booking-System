@@ -17,7 +17,7 @@ function Register() {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location?.state?.from?.pathname || "/";
-  const { createUser, updateUserProfile, loginWithGoogle } = useAuth();
+  const { user, createUser, updateUserProfile, loginWithGoogle } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -90,6 +90,14 @@ function Register() {
       setError(err.message);
     }
   };
+
+  if (user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient">
+        <h1 className="text-5xl"> You are already logged in!</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient">
