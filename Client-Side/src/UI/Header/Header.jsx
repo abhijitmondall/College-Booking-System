@@ -23,7 +23,9 @@ function Header() {
     navigate("/Login", { state: true });
   };
 
-  const handleApplyClick = (id) => {};
+  const handleClick = (id) => {
+    navigate(`/Colleges/${id}`, { state: true });
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -31,7 +33,7 @@ function Header() {
       try {
         setLoading(true);
         const response = await fetch(
-          `http://localhost:3000/api/v1/colleges?text[search]=${collegeName}`,
+          `https://college-booking-system.vercel.app/api/v1/colleges?limit=20&&text[search]=${collegeName}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("access-token")}`,
@@ -39,8 +41,12 @@ function Header() {
           }
         );
         const data = await response.json();
-        console.log(data, collegeName);
-        setColleges(data.colleges);
+
+        if (collegeName) {
+          setColleges(data.colleges);
+        } else {
+          setColleges([]);
+        }
       } catch (error) {
         setError(error.message);
         console.error("Failed to fetch applied colleges:", error);
@@ -71,7 +77,7 @@ function Header() {
           </figure>
 
           {/* Search Bar */}
-          <div className="w-full md:w-1/3 mt-4 md:mt-0">
+          <div className="relative w-full md:w-1/3 mt-4 md:mt-0">
             <form className="flex items-center justify-center">
               <input
                 type="text"
@@ -89,51 +95,28 @@ function Header() {
             </form>
 
             {/* Show Search Result */}
-            {colleges?.length > 0 && (
-              <div className="">
+            {collegeName && (
+              <div className="w-full rounded-[8px] absolute z-50 left-0 top-[160%] p-6 bg-gray-100">
                 <div className="">
-                  <h2 className="text-3xl font-bold text-center mb-8 text-purple-700">
-                    College Admissions
-                  </h2>
-                  <ul className=" grid grid-cols-1 gap-6">
+                  {loading && <p>Searching...</p>}
+                  <ul className="grid grid-cols-1 gap-[6px]">
                     {colleges.map((college) => (
                       <li
                         key={college._id}
-                        className="sm:flex justify-between items-center p-6 bg-white shadow-md rounded-lg hover:shadow-lg transition-all"
+                        className="w-full sm:flex justify-between items-center p-[10px] bg-white shadow-md rounded-lg hover:shadow-lg transition-all"
                       >
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">
+                        <h3 className="text-[12px] font-bold text-gray-800 ">
                           {college.collegeName}
                         </h3>
                         <button
-                          onClick={() => handleApplyClick(college)}
-                          className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-all cursor-pointer"
+                          onClick={() => handleClick(college._id)}
+                          className="text-[12px] px-[12px] py-[6px] bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-all cursor-pointer"
                         >
-                          Apply Now
+                          View Details
                         </button>
                       </li>
                     ))}
                   </ul>
-
-                  {/* Modal */}
-                  {/* {showModal && (
-                    <div className="absolute inset-0 z-50 flex items-center justify-center bg-white bg-opacity-50">
-                      <div className="bg-white w-full max-w-3xl rounded-lg shadow-lg p-8 relative">
-                        <button
-                          onClick={handleCloseModal}
-                          className="absolute top-3 right-3 text-gray-500 hover:text-gray-800 cursor-pointer"
-                        >
-                          ✕
-                        </button>
-                        <h2 className="text-2xl font-bold text-center text-purple-700 mb-6">
-                          Admission Form - {selectedCollege.collegeName}
-                        </h2>
-                        <AdmissionForm
-                          college={selectedCollege}
-                          onClose={handleCloseModal}
-                        />
-                      </div>
-                    </div>
-                  )} */}
                 </div>
               </div>
             )}

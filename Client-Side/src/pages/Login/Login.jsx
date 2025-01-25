@@ -43,7 +43,7 @@ function Login() {
             Login
           </h2>
           <form onSubmit={handleSubmit}>
-            <p className="text-[16px] text-red-600"> {error}!</p>
+            <p className="text-[16px] text-red-600"> {error}</p>
             <div className="mb-4">
               <label
                 htmlFor="email"
