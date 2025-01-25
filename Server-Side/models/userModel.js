@@ -36,7 +36,6 @@ const userSchema = new mongoose.Schema(
     gender: {
       type: String,
       enum: ["Male", "Female", "Other"],
-      required: true,
     },
     photo: {
       type: String,

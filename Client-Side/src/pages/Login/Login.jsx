@@ -1,12 +1,13 @@
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  const { login, user } = useAuth();
+  const { login, user, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -23,6 +24,30 @@ function Login() {
       setPassword("");
     } catch (err) {
       console.error(err);
+      setError(err.message);
+    }
+  };
+
+  const googleLogin = async () => {
+    try {
+      const res = await loginWithGoogle();
+      console.log(res.user.displayName);
+      // send request
+      await fetch(`https://college-booking-system.vercel.app/api/v1/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: res.user.displayName,
+          email: res.user.email,
+          photo: res.user.photoURL,
+        }),
+      });
+
+      if (!res.ok) throw new Error(res.message);
+      navigate(path, { replace: true });
+    } catch (err) {
       setError(err.message);
     }
   };
@@ -89,6 +114,20 @@ function Login() {
                   Register
                 </Link>
               </p>
+
+              <p className="text-center p-y"> OR </p>
+
+              <div className="my-[16px] ">
+                <button
+                  onClick={googleLogin}
+                  className="flex gap-2 items-center justify-center text-textH5 text-colorPrimary border-[1px] py-[.8rem] px-[2.4rem] w-[100%] mx-auto rounded-[3px] cursor-pointer"
+                >
+                  <span className="icon-1x">
+                    <FcGoogle />
+                  </span>
+                  Login With Google
+                </button>
+              </div>
             </div>
           </form>
         </div>

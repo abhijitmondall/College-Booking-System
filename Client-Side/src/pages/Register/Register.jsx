@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import { FcGoogle } from "react-icons/fc";
 
 function Register() {
   const [loading, setLoading] = useState(false);
@@ -16,7 +17,7 @@ function Register() {
   const navigate = useNavigate();
   const location = useLocation();
   const path = location?.state?.from?.pathname || "/";
-  const { createUser, updateUserProfile } = useAuth();
+  const { createUser, updateUserProfile, loginWithGoogle } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,6 +62,29 @@ function Register() {
       setLoading(true);
     } catch (err) {
       console.log(err);
+      setError(err.message);
+    }
+  };
+
+  const googleSignup = async () => {
+    try {
+      const res = await loginWithGoogle();
+      // send request
+      await fetch(`https://college-booking-system.vercel.app/api/v1/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: res.user.displayName,
+          email: res.user.email,
+          photo: res.user.photoURL,
+        }),
+      });
+
+      navigate(path, { replace: true });
+      if (!res.ok) throw new Error(res.message);
+    } catch (err) {
       setError(err.message);
     }
   };
@@ -179,6 +203,20 @@ function Register() {
                 Login
               </Link>
             </p>
+
+            <p className="text-center p-y"> OR </p>
+
+            <div className="my-[16px] ">
+              <button
+                onClick={googleSignup}
+                className="flex gap-2 items-center justify-center text-textH5 text-colorPrimary border-[1px] py-[.8rem] px-[2.4rem] w-[100%] mx-auto rounded-[3px] cursor-pointer"
+              >
+                <span className="icon-1x">
+                  <FcGoogle />
+                </span>
+                Login With Google
+              </button>
+            </div>
           </div>
         </form>
       </div>

@@ -26,6 +26,10 @@ function Header() {
     navigate(`/Colleges/${id}`, { state: true });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
   useEffect(() => {
     setLoading(true);
     const fetchAppliedColleges = async () => {
@@ -57,8 +61,8 @@ function Header() {
   }, [collegeName]);
 
   return (
-    <header className="bg-gradient-to-r from-purple-700 to-purple-500 shadow-md py-[10px]">
-      <div className="container px-6 lg:px-12 relative">
+    <header className="bg-gradient-to-r from-purple-700 to-purple-500 shadow-md py-[8px]">
+      <div className="container relative">
         <div className="flex flex-wrap justify-between items-center py-4">
           {/* Logo Section */}
           <figure className="flex items-center">
@@ -72,7 +76,10 @@ function Header() {
 
           {/* Search Bar */}
           <div className="relative w-full md:w-1/3 mt-4 md:mt-0">
-            <form className="flex items-center justify-center">
+            <form
+              onSubmit={handleSubmit}
+              className="flex items-center justify-center"
+            >
               <input
                 type="text"
                 placeholder="Search College By Name"

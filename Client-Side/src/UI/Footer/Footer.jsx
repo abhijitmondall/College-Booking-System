@@ -60,40 +60,6 @@ function Footer() {
             <li>Phone: +1 (555) 123-4567</li>
             <li>Address: 123 College Ave, Cityville, USA</li>
           </ul>
-          <div className="flex mt-4 space-x-4">
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white"
-            >
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white"
-            >
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white"
-            >
-              <i className="fab fa-instagram"></i>
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-white"
-            >
-              <i className="fab fa-linkedin-in"></i>
-            </a>
-          </div>
         </div>
       </div>
       <div className="text-center text-gray-400 text-sm mt-8">
