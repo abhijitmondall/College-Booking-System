@@ -68,14 +68,14 @@ function Header() {
           <figure className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
               <img src={logo} alt="Logo" className="w-[20%] cursor-pointer" />
-              <h2 className="text-xl md:text-2xl font-bold text-white">
+              <h2 className="text-xl md:text-[20px] font-bold text-white">
                 CollegeHub
               </h2>
             </Link>
           </figure>
 
           {/* Search Bar */}
-          <div className="relative w-full md:w-1/3 mt-4 md:mt-0">
+          <div className="relative w-full md:w-[30%] mt-4 md:mt-0">
             <form
               onSubmit={handleSubmit}
               className="flex items-center justify-center"
@@ -139,7 +139,7 @@ function Header() {
             <ul
               className={`flex items-center ${
                 isOpen ? "flex-col" : "flex-row"
-              } gap-6 text-sm md:text-base font-medium text-white justify-center md:justify-end`}
+              } gap-[20px] text-sm md:text-base font-medium text-white justify-center md:justify-end`}
             >
               <li>
                 <NavLink
@@ -192,12 +192,13 @@ function Header() {
               <li>
                 {user && (
                   <div className="header__user-wrap flex items-center gap-3">
-                    <Link to="/Profile">
+                    <Link to="/Profile" className="flex gap-[6px] items-center">
+                      <p className="text-[#81c5d8]">Profile</p>
                       <img
                         title={user?.displayName || ""}
                         src={user.photoURL || "./user.png"}
                         alt={user?.displayName || ""}
-                        className="h-[50px] rounded-[50%] object-cover cursor-pointer"
+                        className="h-[45px] rounded-[50%] object-cover cursor-pointer"
                       />
                     </Link>
 

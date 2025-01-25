@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEdit, FaSave, FaUniversity, FaHome } from "react-icons/fa";
 import { MdEmail, MdPerson } from "react-icons/md";
 import useAuth from "../../hooks/useAuth";
@@ -56,6 +56,25 @@ function Profile() {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(
+        `https://college-booking-system.vercel.app/api/v1/users/${user?.email}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+        }
+      );
+
+      const data = await res.json();
+
+      setUserData({ ...userData, ...data.data.user });
+    })();
+  }, [isEditing]);
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-50 to-indigo-100">
       <div className="w-full max-w-lg bg-white rounded-lg shadow-lg p-6 sm:p-10 transition-transform transform hover:scale-105">
@@ -99,6 +118,7 @@ function Profile() {
               type="text"
               name="college"
               value={formData.college}
+              defaultValue={userData.college}
               onChange={handleInputChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-indigo-300 focus:border-indigo-500"
             />
@@ -111,6 +131,7 @@ function Profile() {
               type="text"
               name="address"
               value={formData.address}
+              defaultValue={userData.address}
               onChange={handleInputChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-indigo-300 focus:border-indigo-500"
             />
