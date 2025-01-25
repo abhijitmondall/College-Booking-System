@@ -13,10 +13,6 @@ router
   .route("/:id")
   .get(collegeController.getCollege)
   .patch(collegeController.updateCollege)
-  .delete(
-    //  authController.protected,
-    //  authController.restrictTo("Instructor", "Admin"),
-    collegeController.deleteCollege
-  );
+  .delete(collegeController.deleteCollege);
 
 module.exports = router;

@@ -13,7 +13,6 @@ function Header() {
   const [collegeName, setCollegeName] = useState("");
   const [colleges, setColleges] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -48,7 +47,6 @@ function Header() {
           setColleges([]);
         }
       } catch (error) {
-        setError(error.message);
         console.error("Failed to fetch applied colleges:", error);
       } finally {
         setLoading(false);
@@ -59,17 +57,13 @@ function Header() {
   }, [collegeName]);
 
   return (
-    <header className="bg-gradient-to-r from-purple-700 to-purple-500 shadow-md">
-      <div className="container mx-auto px-6 lg:px-12 relative">
+    <header className="bg-gradient-to-r from-purple-700 to-purple-500 shadow-md py-[10px]">
+      <div className="container px-6 lg:px-12 relative">
         <div className="flex flex-wrap justify-between items-center py-4">
           {/* Logo Section */}
           <figure className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
-              <img
-                src={logo}
-                alt="Logo"
-                className="w-12 md:w-16 cursor-pointer"
-              />
+              <img src={logo} alt="Logo" className="w-[20%] cursor-pointer" />
               <h2 className="text-xl md:text-2xl font-bold text-white">
                 CollegeHub
               </h2>

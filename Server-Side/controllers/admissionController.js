@@ -3,21 +3,6 @@ const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const Admission = require("../models/admissionModel");
 
-// Get New Admission Data from user
-
-// Configure Multer for file uploads
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "uploads/"); // Save uploaded files in the 'uploads' folder
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, `${Date.now()}-${file.originalname}`);
-//   },
-// });
-// const upload = multer({ storage });
-
-// exports.uploadUserPhoto = upload.single("image");
-
 exports.newAdmission = catchAsync(async (req, res, next) => {
   const {
     candidateName,
@@ -31,7 +16,6 @@ exports.newAdmission = catchAsync(async (req, res, next) => {
     collegeImage,
     review,
   } = req.body;
-  // Validate input data
 
   if (
     !candidateName ||

@@ -4,6 +4,7 @@ import useAuth from "../../hooks/useAuth";
 
 function Register() {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,11 +14,8 @@ function Register() {
   });
 
   const navigate = useNavigate();
-
   const location = useLocation();
-
   const path = location?.state?.from?.pathname || "/";
-
   const { createUser, updateUserProfile } = useAuth();
 
   const handleChange = (e) => {
@@ -27,39 +25,44 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     if (formData.password !== formData.confirmPassword) return;
+    try {
+      setLoading(true);
 
-    const res = await fetch(
-      `https://college-booking-system.vercel.app/api/v1/users`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          gender: formData.gender,
-        }),
+      const res = await fetch(
+        `https://college-booking-system.vercel.app/api/v1/users`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            gender: formData.gender,
+          }),
+        }
+      );
+      if (!res.ok) {
+        console.log(res);
+        throw new Error(res);
       }
-    );
-    if (!res.ok) {
-      console.log(res);
-      throw new Error(res);
-    }
 
-    await createUser(formData.email, formData.password);
-    await updateUserProfile(formData.name);
-    navigate(path, { replace: true });
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      gender: "",
-    });
-    setLoading(true);
+      await createUser(formData.email, formData.password);
+      await updateUserProfile(formData.name);
+      navigate(path, { replace: true });
+      setFormData({
+        name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        gender: "",
+      });
+      setLoading(true);
+    } catch (err) {
+      console.log(err);
+      setError(err.message);
+    }
   };
 
   return (
@@ -69,6 +72,7 @@ function Register() {
           Register
         </h2>
         <form onSubmit={handleSubmit}>
+          <p className="text-[16px] text-red-600"> {error}</p>
           <div className="mb-4">
             <label htmlFor="name" className="block text-gray-700 font-medium">
               Name

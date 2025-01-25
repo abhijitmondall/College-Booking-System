@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import logo from "./../../assets/Img/logo.png";
+import logo from "../../assets/Img/logo.png";
 
 function Footer() {
   return (
@@ -8,7 +8,7 @@ function Footer() {
         <div>
           <figure>
             <Link to="/">
-              <img src={logo} alt="Logo" className="w-[20%] cursor-pointer" />
+              <img src={logo} alt="Logo" className="w-[15%] cursor-pointer" />
             </Link>
           </figure>
           <h2 className="text-xl font-bold text-white mb-4">CollegeHub</h2>
