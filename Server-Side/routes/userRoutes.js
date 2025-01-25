@@ -10,7 +10,8 @@ router.route("/jwt/:email").get(authController.jwt);
 router
   .route("/")
   .get(userController.getAllUsers)
-  .post(userController.createUser);
+  .post(userController.createUser)
+  .patch(authController.protected, userController.updateUser);
 
 router
   .route("/:id")
