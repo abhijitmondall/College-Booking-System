@@ -34,7 +34,8 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 });
 
 exports.getUser = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.params.id).select("-__v");
+  const userEmail = req.params.id;
+  const user = await User.findOne({ email: userEmail }).select("-__v -role");
 
   if (!user)
     return next(
@@ -67,7 +68,8 @@ exports.createUser = catchAsync(async (req, res, next) => {
 
 exports.updateUser = catchAsync(async (req, res, next) => {
   const userEmail = req.user.email;
-  const user = await User.findAndUpdate({ email: userEmail }, req.body, {
+
+  const user = await User.findOneAndUpdate({ email: userEmail }, req.body, {
     new: true,
     runValidators: true,
   });

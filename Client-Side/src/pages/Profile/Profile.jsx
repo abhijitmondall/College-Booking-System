@@ -11,7 +11,7 @@ function Profile() {
   const [userData, setUserData] = useState({
     name: user?.displayName,
     email: user?.email,
-    university: user?.college,
+    college: user?.college,
     address: user?.address,
   });
 
@@ -28,9 +28,32 @@ function Profile() {
   };
 
   const handleSave = async () => {
-    setUserData({ ...formData });
-    await updateUserProfile(formData.name);
-    setIsEditing(false);
+    try {
+      setUserData({ ...formData });
+
+      const res = await fetch(
+        `https://college-booking-system.vercel.app/api/v1/users`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            address: formData.address,
+            college: formData.college,
+          }),
+        }
+      );
+      setIsEditing(false);
+      if (!res.ok) {
+        throw new Error("Failed to update profile.");
+      }
+      await updateUserProfile(formData.name);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -62,7 +85,8 @@ function Profile() {
               name="email"
               value={formData.email}
               onChange={handleInputChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-indigo-300 focus:border-indigo-500"
+              disabled
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-indigo-300 focus:border-indigo-500 disabled"
             />
 
             <div className="flex items-center space-x-2">
@@ -73,8 +97,8 @@ function Profile() {
             </div>
             <input
               type="text"
-              name="university"
-              value={formData.university}
+              name="college"
+              value={formData.college}
               onChange={handleInputChange}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring focus:ring-indigo-300 focus:border-indigo-500"
             />
@@ -114,7 +138,7 @@ function Profile() {
             <div className="flex items-center space-x-2">
               <FaUniversity className="text-indigo-500 text-xl" />
               <span className="font-medium text-gray-700">
-                {userData.university}
+                {userData.college}
               </span>
             </div>
             <div className="flex items-center space-x-2">
