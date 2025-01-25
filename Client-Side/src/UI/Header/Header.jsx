@@ -61,7 +61,7 @@ function Header() {
   }, [collegeName]);
 
   return (
-    <header className="bg-gradient-to-r from-purple-700 to-purple-500 shadow-md py-[8px]">
+    <header className="bg-gradient-to-r from-purple-700 to-purple-500 shadow-md py-[5px]">
       <div className="container relative">
         <div className="flex flex-wrap justify-between items-center py-4">
           {/* Logo Section */}
@@ -190,22 +190,29 @@ function Header() {
                 </NavLink>
               </li>
               <li>
-                {user ? (
-                  <>
-                    <div className="flex items-center gap-[16px]">
+                {user && (
+                  <div className="header__user-wrap flex items-center gap-3">
+                    <Link to="/Profile">
+                      <img
+                        title={user?.displayName || ""}
+                        src={user.photoURL || "./user.png"}
+                        alt={user?.displayName || ""}
+                        className="h-[50px] rounded-[50%] object-cover cursor-pointer"
+                      />
+                    </Link>
+
+                    <div>
                       <button
-                        className="cursor-pointer border-2 px-[20px] py-[10px] rounded-[10px]"
                         onClick={handleLogout}
+                        className="cursor-pointer border-2 px-[12px] py-[6px] rounded-[10px]"
                       >
                         Logout
                       </button>
-
-                      {/* <p className="text-[26px] text-black">
-                        {user.displayName}
-                      </p> */}
                     </div>
-                  </>
-                ) : (
+                  </div>
+                )}
+
+                {!user && (
                   <NavLink
                     to="/Login"
                     className={({ isActive }) =>

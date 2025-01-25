@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateEmail,
   updateProfile,
 } from "firebase/auth";
 
@@ -46,6 +47,11 @@ function AuthProvider({ children }) {
       displayName: name,
       photoURL: photo,
     });
+  };
+
+  const updateUserEmail = async (newEmail) => {
+    setLoading(true);
+    return await updateEmail(auth.currentUser, newEmail);
   };
 
   const logout = async () => {
@@ -90,6 +96,7 @@ function AuthProvider({ children }) {
     setError,
     error,
     loginWithGoogle,
+    updateUserEmail,
   };
 
   return (
