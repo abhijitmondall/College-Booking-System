@@ -1,33 +1,58 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+
 function CollegeCardsSection() {
-  const colleges = [
-    {
-      id: 1,
-      name: "Green Valley College",
-      image: "https://i.ibb.co.com/5jT94nY/clg3.jpg",
-      admissionDates: "1st June - 30th June",
-      events: ["Cultural Fest", "Science Fair", "Alumni Meet"],
-      researchHistory: ["AI in Healthcare", "Quantum Computing"],
-      sports: ["Football", "Basketball"],
-    },
-    {
-      id: 2,
-      name: "Blue Ocean University",
-      image: "https://i.ibb.co.com/Z6jzckZ/clg-2.jpg",
-      admissionDates: "15th July - 31st July",
-      events: ["Tech Expo", "Art Workshop", "Startup Pitching"],
-      researchHistory: ["Marine Biology", "Robotics"],
-      sports: ["Swimming", "Badminton"],
-    },
-    {
-      id: 3,
-      name: "Sunrise Institute of Technology",
-      image: "https://i.ibb.co.com/n7Wzngz/clg-1.jpg",
-      admissionDates: "10th August - 25th August",
-      events: ["Hackathon", "Music Fest", "Leadership Summit"],
-      researchHistory: ["Blockchain Technology", "Renewable Energy"],
-      sports: ["Cricket", "Volleyball"],
-    },
-  ];
+  const [colleges, setColleges] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  const handleClick = (id) => {
+    navigate(`/colleges/${id}`);
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchAppliedColleges = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          `https://college-booking-system.vercel.app/api/v1/colleges?limit=3`,
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+            },
+          }
+        );
+        const data = await response.json();
+
+        setColleges(data.colleges);
+      } catch (error) {
+        setError(error.message);
+        console.error("Failed to fetch applied colleges:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAppliedColleges();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="bg-gray-50 pt-[60px] pb-[90px] text-center">
+        <p className="text-lg text-gray-800">Loading reviews...</p>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="bg-gray-50 pt-[60px] pb-[90px] text-center">
+        <p className="text-lg text-red-600">{error}</p>
+      </section>
+    );
+  }
 
   return (
     <section className="container">
@@ -36,33 +61,36 @@ function CollegeCardsSection() {
           Explore Our Colleges
         </h2>
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-          {colleges.map((college) => (
+          {colleges?.map((college) => (
             <div
-              key={college.id}
+              key={college._id}
               className="flex flex-col justify-between border-2 border-gray-300 rounded-xl p-6 bg-white shadow-lg hover:shadow-xl transition-transform duration-300 transform hover:translate-y-2"
             >
               <img
-                src={college.image}
-                alt={college.name}
+                src={college.collegeImage}
+                alt={college.collegeName}
                 className="w-full h-44 object-cover rounded-lg mb-6"
               />
               <h3 className="text-xl font-bold text-gray-800 mb-4">
-                {college.name}
+                {college.collegeName}
               </h3>
               <p className="text-sm text-gray-600 mb-3">
                 <strong>Admission Dates:</strong> {college.admissionDates}
               </p>
               <p className="text-sm text-gray-600 mb-3">
-                <strong>Events:</strong> {college.events.join(", ")}
+                <strong>Events:</strong> {college?.events?.join(", ")}
               </p>
               <p className="text-sm text-gray-600 mb-3">
                 <strong>Research History:</strong>{" "}
-                {college.researchHistory.join(", ")}
+                {college?.researchHistory?.join(", ")}
               </p>
               <p className="text-sm text-gray-600 mb-6">
-                <strong>Sports:</strong> {college.sports.join(", ")}
+                <strong>Sports:</strong> {college?.sports?.join(", ")}
               </p>
-              <button className="mt-auto px-6 py-3 text-lg font-medium text-white bg-purple-800 rounded-md hover:bg-green-600 transition-all duration-300 cursor-pointer">
+              <button
+                onClick={() => handleClick(college._id)}
+                className="mt-auto px-6 py-3 text-lg font-medium text-white bg-purple-800 rounded-md hover:bg-green-600 transition-all duration-300 cursor-pointer"
+              >
                 View Details
               </button>
             </div>

@@ -9,13 +9,14 @@ import { useEffect, useState } from "react";
 
 function ReviewSection() {
   const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   // Fetch reviews from API
   useEffect(() => {
     const fetchReviews = async () => {
       try {
+        setLoading(true);
         const res = await fetch(
           `https://college-booking-system.vercel.app/api/v1/reviews`
         );

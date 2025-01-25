@@ -8,6 +8,7 @@ import Login from "./pages/Login/Login";
 import CollegeDetails from "./pages/CollegeDetails/CollegeDetails";
 import Register from "./pages/Register/Register";
 import PrivateRoutes from "./routes/PrivateRoutes";
+import Error from "./pages/Error/Error";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
       </Route>
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 }

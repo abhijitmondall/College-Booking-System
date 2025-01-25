@@ -5,6 +5,7 @@ import { useState } from "react";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
   const { login, user } = useAuth();
   const navigate = useNavigate();
 
@@ -22,6 +23,7 @@ function Login() {
       setPassword("");
     } catch (err) {
       console.error(err);
+      setError(err.message);
     }
   };
 
@@ -41,6 +43,7 @@ function Login() {
             Login
           </h2>
           <form onSubmit={handleSubmit}>
+            <p className="text-[16px] text-red-600"> {error}!</p>
             <div className="mb-4">
               <label
                 htmlFor="email"

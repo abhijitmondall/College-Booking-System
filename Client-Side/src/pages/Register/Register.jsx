@@ -18,7 +18,7 @@ function Register() {
 
   const path = location?.state?.from?.pathname || "/";
 
-  const { createUser } = useAuth();
+  const { createUser, updateUserProfile } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,6 +50,7 @@ function Register() {
     }
 
     await createUser(formData.email, formData.password);
+    await updateUserProfile(formData.name);
     navigate(path, { replace: true });
     setFormData({
       name: "",

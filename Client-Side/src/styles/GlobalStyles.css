@@ -120,16 +120,18 @@
   }
 }
 
-.slider .swiper-button-prev {
-  position: absolute;
-  top: 31px;
-  left: 93%;
-  z-index: 99999;
-}
+@media (min-width: 900px) {
+  .slider .swiper-button-prev {
+    position: absolute;
+    top: 31px;
+    left: 93%;
+    z-index: 99999;
+  }
 
-.slider .swiper-button-next {
-  position: absolute;
-  top: 14%;
+  .slider .swiper-button-next {
+    position: absolute;
+    top: 14%;
+  }
 }
 
 .slider .swiper-button-prev:after,
@@ -139,7 +141,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0.4rem;
 }
 
 ::-webkit-scrollbar-thumb {

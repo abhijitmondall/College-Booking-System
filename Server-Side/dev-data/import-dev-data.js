@@ -19,13 +19,13 @@ mongoose.connect(DB, {}).then((con) => {
 
 // Read JSON File
 const colleges = JSON.parse(
-  fs.readFileSync(`${__dirname}/ReviewData.json`, "utf8")
+  fs.readFileSync(`${__dirname}/CollegesData.json`, "utf8")
 );
 
 // Import Data Into DB
 const importData = async () => {
   try {
-    await Review.create(colleges);
+    await College.create(colleges);
     console.log("Data Imported Successfully");
   } catch (err) {
     console.log("Failed to Import", err);

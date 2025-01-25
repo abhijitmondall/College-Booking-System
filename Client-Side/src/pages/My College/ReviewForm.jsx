@@ -25,10 +25,10 @@ function ReviewForm({ admission, setRefetch }) {
         `https://college-booking-system.vercel.app/api/v1/reviews`,
         {
           method: "POST",
-          Authorization: `Bearer ${JSON.parse(
-            localStorage.getItem("access-token")
-          )}`,
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
           body: JSON.stringify(data),
         }
       );
@@ -36,7 +36,10 @@ function ReviewForm({ admission, setRefetch }) {
         `https://college-booking-system.vercel.app/api/v1/admissions/${ID}`,
         {
           method: "PATCH",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
           body: JSON.stringify({
             review: { rating, comment, isReviewed: true },
           }),
@@ -58,6 +61,7 @@ function ReviewForm({ admission, setRefetch }) {
 
   return (
     <form onSubmit={handleSubmit} className="mt-4">
+      <h1 className="text-[18px]">Give a Feedback:</h1>
       <label className="block mb-2">Rating:</label>
       <select
         value={rating}

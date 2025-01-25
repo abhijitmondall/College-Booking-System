@@ -64,7 +64,7 @@ class ApiFeatures {
 
       console.log(queryObj.text.search);
       this.query = this.query.find({
-        toyName: { $regex: new RegExp(queryObj.text.search, "i") },
+        collegeName: { $regex: new RegExp(queryObj.text.search, "i") },
       });
     }
     return this;

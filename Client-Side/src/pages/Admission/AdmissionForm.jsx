@@ -45,7 +45,7 @@ function AdmissionForm({ college, onClose }) {
           body: JSON.stringify(formData),
         }
       );
-      console.log(res);
+
       if (res.ok) {
         await res.json();
 

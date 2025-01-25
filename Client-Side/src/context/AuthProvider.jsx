@@ -56,7 +56,7 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log(currentUser);
+
       (async () => {
         // Get and Set Token
         if (currentUser) {
